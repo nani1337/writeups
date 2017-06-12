@@ -30,3 +30,13 @@ Dex2jar：
 jd-gui:
 
 分析之后发现，android程序内部将输入的字符串通过check函数传递给了libctf.so文件，核心算法需要从so中查找。
+
+安装android studio：
+下载并解压
+https://dl.google.com/dl/android/studio/ide-zips/3.0.0.2/android-studio-ide-171.4056697-windows.zip
+
+安装android sdk：
+https://dl.google.com/android/installer_r24.4.1-windows.exe
+
+根据下面这个博客配置IDA调试Android so文件：
+http://www.cnblogs.com/shaoge/p/5425220.html

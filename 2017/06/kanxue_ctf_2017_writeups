@@ -1,4 +1,4 @@
-
+f
 
 ## 0x01_crackme
 
@@ -24,3 +24,9 @@
 
 ## 0x05_crackme
 
+这是一道android crackme，第一次做，自然是趟路。
+
+Dex2jar：
+jd-gui:
+
+分析之后发现，android程序内部将输入的字符串通过check函数传递给了libctf.so文件，核心算法需要从so中查找。

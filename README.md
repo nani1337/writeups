@@ -11,7 +11,7 @@
 * :jack_o_lantern:ctf writeups
   * [kanxue ctf 2017 writeups](https://github.com/walkerfuz/writeups/blob/master/2017/06/kanxue_ctf_2017_writeups)
 * :green_book: reading books
-  * [0day安全：软件漏洞分析技术 The Second Edition]()
+  * [读《0day安全：软件漏洞分析技术（第2版）》有感]()
 
 
 ------

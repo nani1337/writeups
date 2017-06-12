@@ -1,5 +1,3 @@
-f
-
 ## 0x01_crackme
 
 第一题属于入门型crackme，后续复盘主要看一下浮点指令的运算，自己刚开始是暴力破解的，应该找到准确的公式。
@@ -26,10 +24,9 @@ f
 
 这是一道android crackme，第一次做，自然是趟路。
 
-Dex2jar：
-jd-gui:
+Dex2jar + jd_gui  --> 得到Android的java源码
 
-分析之后发现，android程序内部将输入的字符串通过check函数传递给了libctf.so文件，核心算法需要从so中查找。
+分析源码发现，android程序内部将输入的字符串通过check函数传递给了libctf.so文件，核心算法需要从so中查找。
 
 安装android studio：
 下载并解压

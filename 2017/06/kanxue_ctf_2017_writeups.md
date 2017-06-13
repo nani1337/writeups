@@ -1,5 +1,5 @@
 * 目录
-  * [0x01_windows_crackme](https://github.com/walkerfuz/writeups/master/2017/06/kanxue_ctf_2017_writeups_0x01.md)
+  * [0x01_windows_crackme](https://github.com/walkerfuz/writeups/blob/master/2017/06/kanxue_ctf_2017_writeups_0x01.md)
   * [0x02_windows_crackme]()
   * [0x03_vb_crackme]()
   * [0x04_linux_pwn]()

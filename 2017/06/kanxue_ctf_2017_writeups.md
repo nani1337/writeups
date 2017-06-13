@@ -37,3 +37,42 @@ https://dl.google.com/android/installer_r24.4.1-windows.exe
 
 根据下面这个博客配置IDA调试Android so文件：
 http://www.cnblogs.com/shaoge/p/5425220.html
+
+将android-sdk\platform-tools目录添加至系统变量Path中，便于在cmd中直接调用adb.exe.
+
+安装apk：
+
+```bash
+>adb install 6.apk
+6.apk: 1 file pushed. 10.8 MB/s (923554 bytes in 0.082s)
+        pkg: /data/local/tmp/6.apk
+Success
+```
+
+卸载apk需要指定apk包名，即AndroidMainifest.xml中<manifest>节点下package元素所指定的名字。
+
+```bash
+>adb uninstall com.miss.rfchen
+Success
+```
+
+将IDA调试需要的dbgsrv\android_server至android系统并执行：
+
+```bash
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

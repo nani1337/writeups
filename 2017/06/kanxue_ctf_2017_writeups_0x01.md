@@ -1,4 +1,4 @@
-* [目录](https://github.com/walkerfuz/writeups/master/2017/06/kanxue_ctf_2017_writeups.md)
+* [目录](https://github.com/walkerfuz/writeups/blob/master/2017/06/kanxue_ctf_2017_writeups.md)
 
 ## 0x01_windows_crackme
 

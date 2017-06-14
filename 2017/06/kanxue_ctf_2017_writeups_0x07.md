@@ -611,3 +611,89 @@ int sub_41493D()
 大致意思是根据内核模式定时器 调试与非调试状态下的时间不同，检测是否处于调试中。
 
 上述函数时将QueryPerformanceCounter得到的PerformanceCount写入到dword_400480与__security_cookie，很自然想到，如果这是反调试的话，作者后续还会调用这两个位置，以便对这两个位置进行某种检测，从而确定是否在反调试。
+
+
+换电脑后，用Win10x64能够正确打开crackme，看来win7x64打不开另有蹊跷，这个问题后面再分析。
+
+调用完0041493D后，程序无条件jmp 00414288：
+
+
+.text:00414288                 push    14h
+.text:0041428A                 push    offset dword_451D40
+.text:0041428F                 call    sub_414890
+.text:00414294                 push    1
+.text:00414296                 call    sub_413A1D
+.text:0041429B                 pop     ecx
+.text:0041429C                 test    al, al
+.text:0041429E                 jnz     short loc_4142A7
+
+
+
+调用的00414890
+
+
+.text:00414890                 push    offset sub_4197D0
+.text:00414895                 push    large dword ptr fs:0
+.text:0041489C                 mov     eax, [esp+8+arg_4]
+.text:004148A0                 mov     [esp+8+arg_4], ebp
+.text:004148A4                 lea     ebp, [esp+8+arg_4]
+.text:004148A8                 sub     esp, eax
+.text:004148AA                 push    ebx
+.text:004148AB                 push    esi
+.text:004148AC                 push    edi
+.text:004148AD                 mov     eax, ds:___security_cookie
+.text:004148B2                 xor     [ebp-4], eax
+.text:004148B5                 xor     eax, ebp
+.text:004148B7                 push    eax
+.text:004148B8                 mov     [ebp-18h], esp
+.text:004148BB                 push    dword ptr [ebp-8]
+.text:004148BE                 mov     eax, [ebp-4]
+.text:004148C1                 mov     dword ptr [ebp-4], 0FFFFFFFEh
+.text:004148C8                 mov     [ebp-8], eax
+.text:004148CB                 lea     eax, [ebp-10h]
+.text:004148CE                 mov     large fs:0, eax
+.text:004148D4                 repne retn
+
+反正是比较和___security_cookie相关的东西，repne不等于时重复，估计和反调试有关系。
+
+
+这里又F8跟踪了一下，没有头绪，想着如果是基于时间的检测，能否在GetDlgItemTextA设置个int 3断点，然后再再OD中恢复执行呢？
+
+
+
+
+
+.text:004104EE                 lea     eax, [ebp-80h]
+.text:004104F1                 push    64h             ; cchMax
+.text:004104F3                 push    eax             ; lpString
+.text:004104F4                 push    3E8h            ; nIDDlgItem
+.text:004104F9                 push    dword ptr [esi+4] ; hDlg
+.text:004104FC                 call    ds:GetDlgItemTextA
+.text:00410502                 lea     eax, [ebp-80h]
+.text:00410505                 push    eax
+.text:00410506                 lea     ecx, [ebp-98h]
+
+
+
+
+00410502  8D 45 80 50 8D 8D 68 FF  FF FF E8 1C F8 FF FF 83  .E€P..h.........
+
+
+修改为：
+
+
+
+00410502  CC 45 80 50 8D 8D 68 FF  FF FF E8 1C F8 FF FF 83  .E€P..h.........
+
+
+发现运行不到00410502，主界面还没有显示就退出了，说明有某种反调试机制存在，难不成是禁止向程序中插入int 3？
+
+Win10x64下OD停在Tlscallback_0函数入口0040C120处，然后bp 00410502断点，F9运行崩溃，但在win7x32和winXPSP3x86下就可以断在00410502。
+
+难不成是作者的bug？没有仔细考虑32位系统下的情况。
+
+
+
+
+
+

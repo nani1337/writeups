@@ -1,0 +1,298 @@
+PEiD 打开程序，Visual C++ 8.0编译，Win32 console，加壳未知，入口点偏移42E1。
+
+Win7x86下运行程序，
+
+Please input the key:
+
+输入后弹出your key is not right!的Messagebox，点击确定后，console程序退出。
+
+然后用OD加载程序，程序暂停在00402D00位置，并不是入口点，先F9执行上述过程，程序能够正常执行并判断，看起来一切正常。
+
+
+IDA打开EXE，main函数00402D40。
+
+查看Imports输入表：
+
+
+004050B4  scanf 		MSVCR80
+004050E0  MessageBoxA 	USER32
+004050BC  printf 		MSVCR80
+00405058  exit 			MSVCR80
+
+
+0040502C  IsDebuggerPresent 	KERNEL32
+00405084  _crt_debugger_hook 	MSVCR80
+00405004  ExitProcess 			KERNEL32
+
+查看导出表：
+  
+TlsCallback_0 00402D00             
+TlsCallback_1 00402D20             
+TlsCallback_2 00402D30             
+start         004042E1 [main entry]
+
+发现导出表除了入口点之外，还有先于入口点执行的3个Tls回调函数，OD第一次暂停的地方就是第一个Tls回调函数的起始位置。
+
+正常程序是没有Tls回调的，Tls回调通常与反调试有关，但OD刚才调用了后面再着重分析。
+
+Shift+F12查看字符串窗口，发现了`CTF2017`等常规字符串外，还发现了其它不常见的字符串：
+
+.rdata:00405184 0000001F C --------???CTF2017--------\n\n\n                    
+.rdata:00405144 00000035 C abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+.data:00406490 0000004E C 13095069099216326605010245808779535277211541324456558063162414338128147458401
+
+但奇怪的是，并没有发现“Please input the key:”和出错提醒“your key is not right!”。
+
+大致思路：
+
+1. 找到“消失的”字符串“Please input the key:”和“your key is not right!”
+2. 查看scanf函数，找到处理输入字符串的程序逻辑
+3. Tls回调的作用
+4. IsDebuggerPresent的作用
+5. 哪些特殊字符串与数字串的用途
+
+通过输入表找到MessageBoxA：
+
+.idata:004050E0 ; int __stdcall MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType)
+.idata:004050E0                 extrn MessageBoxA:dword ; CODE XREF: sub_403440+18p
+.idata:004050E0                                         ; DATA XREF: sub_403440+18r ...
+
+
+右击MessageBoxA选择Xrefs graph to...得到交叉引用：
+
+__tmainCRTStartup -->  _main --> sub_403590 --> sub_403440 --> MessageBoxA
+
+
+
+双击进入调用MessageBoxA的流程：
+.text:00403440 sub_403440      proc near               ; DATA XREF: sub_403590+50o
+.text:00403440
+.text:00403440 arg_0           = dword ptr  4
+.text:00403440 arg_4           = dword ptr  8
+.text:00403440
+.text:00403440                 mov     eax, [esp+arg_4]
+.text:00403444                 push    esi
+.text:00403445                 mov     esi, [esp+4+arg_0]
+.text:00403449                 mov     ecx, [esi+4]
+.text:0040344C                 mov     edx, [esi]
+.text:0040344E                 push    0               ; uType
+.text:00403450                 add     ecx, eax
+.text:00403452                 push    ecx             ; lpCaption
+.text:00403453                 add     edx, eax
+.text:00403455                 push    edx             ; lpText
+.text:00403456                 push    0               ; hWnd
+.text:00403458                 call    ds:MessageBoxA
+.text:0040345E                 add     dword ptr [esi+14h], 1
+.text:00403462                 pop     esi
+.text:00403463                 retn
+.text:00403463 sub_403440      endp
+
+F5反编译：
+int __cdecl sub_403440(int a1, int a2)
+{
+  int result; // eax@1
+
+  result = MessageBoxA(0, (LPCSTR)(a2 + *(_DWORD *)a1), (LPCSTR)(a2 + *(_DWORD *)(a1 + 4)), 0);
+  ++*(_DWORD *)(a1 + 20);
+  return result;
+}
+
+可以看到MessageBoxA显示的文本在内存中的位置是经过a1和a2计算的，用OD加载程序，在0040344E下断点，执行：
+
+
+018728E0:		"--------???CTF2017--------\n\n\n"  
+018728E0+0x110:	"...〤TF2017"
+018728E0+0x140:	"your key is not right!"
+
+根据下面这个偏移：
+.rdata:00405184 0000001F C --------???CTF2017--------\n\n\n    
+向后+0x110和0x140并没有找到想要的字符串，因此不可取。
+
+
+调用MessageBoxA继续单步执行后，发现retn指令返回的是00403573位置，查看其所在函数：
+
+.text:0040356B loc_40356B:                             ; CODE XREF: sub_403540+21j
+.text:0040356B                 mov     eax, [esi+eax*8+1Ch]
+.text:0040356F                 push    ebp
+.text:00403570                 push    esi
+.text:00403571                 call    eax  //这里调用了sub_403440函数
+.text:00403573                 add     esp, 8
+.text:00403576
+.text:00403576 loc_403576:                             ; CODE XREF: sub_403540+18j
+.text:00403576                 mov     ecx, [esi+14h]
+.text:00403579                 cmp     byte ptr [ecx], 0A3h
+.text:0040357C                 jnz     short loc_403551
+.text:0040357E                 pop     edi
+.text:0040357F
+.text:0040357F loc_40357F:                             ; CODE XREF: sub_403540+Bj
+.text:0040357F                 pop     ebp
+.text:00403580                 retn
+.text:00403580 sub_403540      endp
+
+该代码片段位于sub_403540内，因此修正后的调用关系：
+
+__tmainCRTStartup -->  _main --> sub_403590 --> sub_403440 --> MessageBoxA
+
+to
+
+__tmainCRTStartup -->  _main --> sub_403540 --> sub_403440 --> MessageBoxA
+
+
+再看看scanf的交叉引用：
+
+
+__tmainCRTStartup -->  _main --> sub_403590 --> sub_403480 --> scanf
+
+
+查看sub_403480依旧是根据调用参数，确定输入内容放的内存位置：
+
+
+.text:00403480 sub_403480      proc near               ; DATA XREF: sub_403590+7Co
+.text:00403480
+.text:00403480 arg_0           = dword ptr  4
+.text:00403480 arg_4           = dword ptr  8
+.text:00403480
+.text:00403480                 push    esi
+.text:00403481                 mov     esi, [esp+4+arg_0]
+.text:00403485                 mov     eax, [esi]
+.text:00403487                 add     eax, [esp+4+arg_4]
+.text:0040348B                 push    eax
+.text:0040348C                 push    offset Format   ; "%s"
+.text:00403491                 call    ds:scanf
+.text:00403497                 add     dword ptr [esi+14h], 1
+.text:0040349B                 add     esp, 8
+.text:0040349E                 pop     esi
+.text:0040349F                 retn
+.text:0040349F sub_403480      endp
+
+int __cdecl sub_403480(int a1, int a2)
+{
+  int result; // eax@1
+
+  result = scanf("%s", a2 + *(_DWORD *)a1);
+  ++*(_DWORD *)(a1 + 20);
+  return result;
+}
+
+OD加载程序，在00403485下断点：
+
+.text:00403481                 mov     esi, [esp+4+arg_0]
+	堆栈 ss:[0012FD5C]=0012FD98
+.text:00403485                 mov     eax, [esi]
+	堆栈 ds:[0012FD98]=00000160
+.text:00403487                 add     eax, [esp+4+arg_4]
+	堆栈 ss:[0012FD60]=002227D0, (ASCII "--------...〤TF2017--------\n\n\n")
+	eax=00000160
+.text:0040348B                 push    eax
+	eax=00222930
+.text:0040348C                 push    offset Format   ; "%s"
+.text:00403491                 call    ds:scanf
+
+scanf输入的字符串地址也是根据偏移计算得到的，而且借助的基址和MessageBoxA借助的基址一样，观察002227D0并不是栈地址，那估计是申请的堆地址吧，暂且后面在分析。
+修正一下scanf的交叉引用：
+__tmainCRTStartup -->  _main --> sub_403590 --> sub_403480 --> scanf
+
+to:
+__tmainCRTStartup -->  _main --> sub_403540 --> sub_403480 --> scanf
+
+同样继续F8单步执行到retn指令，发现返回至00403573，和MessageBoxA返回了同一个函数，这里就不得不看一看这个函数了：
+
+
+int __usercall sub_403540@<eax>(int result@<eax>, int a2@<esi>, int a3)
+{
+  _BYTE *v3; // ecx@2
+
+  *(_DWORD *)(a2 + 20) = result;
+  while ( **(_BYTE **)(a2 + 20) != -93 )
+  {
+    result = 0;
+    v3 = (_BYTE *)(a2 + 24);
+    while ( result < 32 )
+    {
+      if ( **(_BYTE **)(a2 + 20) == *v3 )
+      {
+		//下面是调用的scanf和MessageBoxA的地方
+        result = (*(int (__cdecl **)(int, int))(a2 + 8 * result + 28))(a2, a3);
+        break;
+      }
+      ++result;
+      v3 += 8;
+    }
+  }
+  return result;
+}
+
+而_main调用sub_403540的逻辑非常简单：
+
+v3 = malloc(0x1000u);
+......
+*((_DWORD *)v3 + 72) = v29;
+*((_DWORD *)v3 + 73) = v6;
+*((_DWORD *)v3 + 74) = v7;
+*((_DWORD *)v3 + 75) = v4;
+*((_DWORD *)v3 + 76) = v5;
+*((_WORD *)v3 + 154) = v34;
+*((_DWORD *)v3 + 80) = v23;
+*((_DWORD *)v3 + 81) = v24;
+......
+//前面申请了一个堆，然后各种赋值，最后调用这个函数
+sub_403540((int)&v35, (int)&v17, (int)v3);
+free(v3);
+return 0;
+
+看来主逻辑都是在sub_403540完成的，猜测scanf之后对输入字符串的处理也是和scanf与MessageBoxA一样，在循环中调用。
+
+常规来说，接下来，在sub_403540的while循环下断点，分析_main和sub_403540也许就能得到答案。
+
+但分析到这里，3个TlsCallback回调和IsDebuggerPresent函数都没有涉及到，这是不正常的，为了不至于入坑，先将这两个疑点分析清楚。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

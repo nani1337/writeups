@@ -6,6 +6,7 @@
   * [0x05_winxp_crackme]()
   * [0x06_android_crackme]()
   * [0x07_windows_crackme](https://github.com/walkerfuz/writeups/blob/master/2017/06/kanxue_ctf_2017_writeups_0x07.md)
+  * [0x08_windows_crackme](https://github.com/walkerfuz/writeups/blob/master/2017/06/kanxue_ctf_2017_writeups_0x08.md)
 
 ## 0x02_windows_crackme
 第二题没看，纯计算pass掉吧。

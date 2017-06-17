@@ -470,8 +470,8 @@ TlsCallback_0-->sub_401000-->__except_handler4-->__Security_check_cookie-->___re
 __tmainCRTStartup-->__main-->__Security_check_cookie-->___report_gsfailure-->IsDebuggerPresent
 __tmainCRTStartup-->__main-->sub_402700-->sub_402450__Security_check_cookie-->___report_gsfailure-->IsDebuggerPresent
 ```
-由于在分析TLs回调时已经设置StrongOD插件的OD可以绕过IsDebuggerPresent了，这里就没必须再去分析这些流程了，直接看_main函数，寻找算法。
-------
+由于在分析TLs回调时已经设置StrongOD插件的OD可以绕过IsDebuggerPresent了，这里就没必须再去分析这些流程了，下面直接看_main函数，寻找算法。
+
 Main函数的结构很简单，首先在栈中开辟两个相邻的栈内存，一个从0018FD9C到0018FEAF，0x114大小，存放了一些函数的偏移；另一个从0018FEB0至0018FF33，共0x84=132字节，全部被常量赋值，但其中有4个字节其实没有赋值，分别为0018FEC6、0018FEC7、0018FEDE、0018FEDF，先记下来，后面有可能用到。
 ```assembly
 0018FD9C  -astart-

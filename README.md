@@ -9,19 +9,21 @@
   * [windows crackme anti analysis technology and bypass](/2017/06/windows_crackme_anti_analysis_technology_and_bypass.md)
 * :syringe:漏洞利用
   * [ms17_010_windows_smb_eternal_blue_analysis_and_exploit](/2017/06/ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
-* fuzzing
-  * [how_to_generate_a_good_templet_for_browser_fuzzing]()
+* :ant:fuzzing
+  * [how_to_generate_a_good_templet_for_browser_fuzzing]()
 * :jack_o_lantern:ctf writeups
   * [kanxue ctf 2017 writeups](/2017/06/kanxue_ctf_2017_writeups.md)
 * :green_book: reading books
-  * [professional_books_and_learning_materials_reading_list](/2017/06/professional_books_and_learning_materials_reading_list.md)
+  * [professional_books_and_learning_materials_reading_list](/books/professional_books_and_learning_materials_reading_list.md)
   
-------
-
 ## 研究项目
 
 * [morph - an open source browser fuzzing framework for fun](https://github.com/walkerfuz/morph)
-* [water_bear - an networked aircraft can reach any corner of cyber based on exploits](https://github.com/walkerfuz/water_bear)
+* :droplet:[droplet - an networked aircraft can reach any corner of cyber based on exploits](https://github.com/walkerfuz/droplet)
+
+## 系列
+
+* [浏览器漏洞分析利用的前生今世：历史漏洞、逆向工程、edge源码、补丁对比、漏洞利用的进化等]()
 
 ## 关于我
 
@@ -31,7 +33,6 @@
 
 学而不思则罔，思而不学则殆，这句话很是受用。为了能够详细地整理自己的思路，梳理知识点，特开设此学习笔记，希望能坚持到三年后。
 
-
+邮箱：walkerfuz#outlook.com
 ------
-
 :copyright: 2016-2017  :rocket: `Walkerfuz`.

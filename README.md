@@ -6,24 +6,27 @@
 ## 文章列表
 
 * :key:逆向工程
-  * [windows crackme anti analysis technology and bypass](/2017/06/windows_crackme_anti_analysis_technology_and_bypass.md)
+  * [2017_06_windows crackme anti analysis technology and bypass](/revese/2017_06_reversewindows_crackme_anti_analysis_technology_and_bypass.md)
 * :syringe:漏洞利用
-  * [ms17_010_windows_smb_eternal_blue_analysis_and_exploit](/2017/06/ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
+  * [ms17_010_windows_smb_eternal_blue_analysis_and_exploit](/exploit/2017_06_ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
 * :ant:fuzzing
-  * [how_to_generate_a_good_templet_for_browser_fuzzing]()
+  * [how_to_generate_a_good_templet_for_browser_fuzzing](/fuzzing/how_to_generate_a_good_templet_for_browser_fuzzing.md)
 * :jack_o_lantern:ctf writeups
-  * [kanxue ctf 2017 writeups](/2017/06/kanxue_ctf_2017_writeups.md)
+  * [kanxue ctf 2017 writeups](/ctf/2017_06_kanxue_ctf_2017_writeups.md)
 * :green_book: reading books
   * [professional_books_and_learning_materials_reading_list](/books/professional_books_and_learning_materials_reading_list.md)
+  * [2017_06_review about_0_day_security_second_edition]()
   
 ## 研究项目
 
 * [morph - an open source browser fuzzing framework for fun](https://github.com/walkerfuz/morph)
 * :droplet:[droplet - an networked aircraft can reach any corner of cyber based on exploits](https://github.com/walkerfuz/droplet)
+* [pydbg3 - an pure python3 debugger to debug process on windows/linux/macOS](https://github.com/walkerfuz/pydbg3)
 
 ## 系列
 
 * [浏览器漏洞分析利用的前生今世：历史漏洞、逆向工程、edge源码、补丁对比、漏洞利用的进化等]()
+* [windows smb protocol reverse engineering](/2017/06/windows_smb_protocol_reverse_engineering.md)
 
 ## 关于我
 

@@ -5,15 +5,15 @@
 ------
 ## 文章列表
 
-* [:key:reverse engineering](./reverse)
+* :key:[reverse engineering](./reverse)
   * [2017_06_windows crackme anti analysis technology and bypass](/revese/2017_06_reversewindows_crackme_anti_analysis_technology_and_bypass.md)
-* [:syringe:exploit](./exploit)
+* :syringe:[exploit](./exploit)
   * [2017_06_ms17_010_windows_smb_eternal_blue_analysis_and_exploit](/exploit/2017_06_ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
-* [:ant:fuzzing](./fuzzing)
+* :ant:[fuzzing](./fuzzing)
   * [how_to_generate_a_good_templet_for_browser_fuzzing](/fuzzing/how_to_generate_a_good_templet_for_browser_fuzzing.md)
-* [:jack_o_lantern:ctf writeups](./ctf)
+* :jack_o_lantern:[ctf writeups](./ctf)
   * [2017_06_kanxue ctf 2017 writeups](/ctf/2017_06_kanxue_ctf_2017_writeups.md)
-* [:green_book: reading books](./books)
+* :green_book:[reading books](./books)
   * [professional_books_and_learning_materials_reading_list](/books/professional_books_and_learning_materials_reading_list.md)
   * [2017_06_review about_0_day_security_second_edition](/books/2017_06_review_about_0day_security_second_edition.md)
   

@@ -14,8 +14,9 @@
 * :jack_o_lantern:[ctf writeups](./ctf)
   * [2017_06_kanxue ctf 2017 writeups](/ctf/2017_06_kanxue_ctf_2017_writeups.md)
 * :green_book:[reading books](./books)
-  * [professional_books_and_learning_materials_reading_list](/books/professional_books_and_learning_materials_reading_list.md)
   * [2017_06_review about_0_day_security_second_edition](/books/2017_06_review_about_0day_security_second_edition.md)
+  * [professional_books_and_learning_materials_reading_list](/books/professional_books_and_learning_materials_reading_list.md)
+  
   
 ## 研究项目
 
@@ -25,7 +26,7 @@
 
 ## 系列
 
-* [浏览器漏洞分析利用的前生今世：历史漏洞、逆向工程、edge源码、补丁对比、漏洞利用的进化等]()
+* 浏览器漏洞分析利用的前生今世：历史漏洞、逆向工程、edge源码、补丁对比、漏洞利用的进化等
 * [windows smb protocol reverse engineering](/reverse/windows_smb_protocol_reverse_engineering.md)
 
 ## 关于我

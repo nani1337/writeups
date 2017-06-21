@@ -1,4 +1,4 @@
-* [目录](/ctf/kanxue_ctf_2017_writeups.md)
+* [目录](/notes/ctf_kanxue_ctf_2017_writeups.md)
 
 ## 0x08_windows_crackme
 

@@ -6,16 +6,16 @@
 ## 文章列表
 
 * :key:reverse
-  * Windows crackme anti analysis and bypass
+  * Windows crackme anti analysis and bypass
 * :syringe:exploit
-  * [ms17_010 windows_smb_eternal_blue_analysis_and_exploit](/exploit/ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
+  * [ms17_010 windows_smb_eternal_blue_analysis_and_exploit](/exploit/ms17_010_windows_smb_eternal_blue_analysis_and_exploit.md)
 * :ant:fuzzing
-  * how to generate a good templet for browser fuzzing
+  * how to generate a good templet for browser fuzzing
 * :jack_o_lantern:ctf writeups
-  * [kanxue ctf 2017 writeups](/ctf/kanxue_ctf_2017_writeups.md)
+  * [kanxue ctf 2017 writeups](/ctf/kanxue_ctf_2017_writeups.md)
 * :green_book:books
-  * [读《0day安全》有感](/books/review_about_0day_security_second_edition.md)
-  * [专业书籍和学习资料清单](/books/professional_books_and_learning_materials_reading_list.md)
+  * [读《0day安全》有感](/books/review_about_0day_security_second_edition.md)
+  * [专业书籍和学习资料清单](/books/professional_books_and_learning_materials_reading_list.md)
   
 ## 想法
 

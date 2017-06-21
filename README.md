@@ -11,7 +11,7 @@
   * [kanxue ctf 2017 writeups](./ctf/kanxue_ctf_2017_writeups.md)
 * :green_book:阅读书籍
   * [读《0day安全：软件漏洞分析技术》有感](/books/review_about_0day_security_second_edition.md)
-  * [专业书籍和学习资料清单](/books/professional_books_and_learning_materials_reading_list.md)
+  * [专业书籍和学习资料清单](/books/professional_books_and_learning_materials_reading_list.md)
   
 ## 专题
 

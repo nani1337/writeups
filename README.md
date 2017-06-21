@@ -23,8 +23,6 @@
 
 ## 联系我
 
-如果writeup中出现任何错误，请发表在[`Issues`](https://github.com/walkerfuz/writeups/issues)区，期待您的留言。
-
 邮箱：walkerfuz#outlook.com
 
 ------

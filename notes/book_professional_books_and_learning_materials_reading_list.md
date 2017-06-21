@@ -1,7 +1,7 @@
 ## :green_book:专业书籍
 
 * 漏洞分析和利用
-  * [0day安全：软件漏洞分析技术（第2版）](/books/review_about_0day_security_second_edition.md):bookmark:
+  * [0day安全：软件漏洞分析技术（第2版）](/notes/book_review_about_0day_security_second_edition.md):bookmark:
   * 漏洞战争：软件漏洞分析精要
   * 内核漏洞的利用与防范
   * 捉虫日记

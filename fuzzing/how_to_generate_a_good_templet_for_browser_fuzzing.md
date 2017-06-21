@@ -1,1 +1,0 @@
-# how_to_generate_a_good_templet_for_browser_fuzzing

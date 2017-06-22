@@ -26,4 +26,4 @@
 邮箱：walkerfuz#outlook.com
 
 ------
-:copyright: 2016-2017  :rocket: `Walkerfuz`. Powered by github.
+:copyright: 2016-2017  :rocket: `Walkerfuz`.
